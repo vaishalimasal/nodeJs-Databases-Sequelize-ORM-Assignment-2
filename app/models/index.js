@@ -19,18 +19,18 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.groupATeam = require("./groupATeam.model.js")(sequelize, Sequelize);
-db.groupBTeam = require("./groupBTeam.model.js")(sequelize, Sequelize);
+db.group_A_team = require("./groupA.model.js")(sequelize, Sequelize);
+db.group_B_team = require("./groupB.model.js")(sequelize, Sequelize);
 
-db.groupBTeam.belongsToMany(db.groupATeam, {
-  through: "groupATeam_groupBTeam",
-  as: "groupATeams",
-  foreignKey: "groupBTeam_id",
+db.group_B_team.belongsToMany(db.group_A_team, {
+  through: "groupAteam_groupBteam",
+  as: "group_A_teams",
+  foreignKey: "groupB_id",
 });
-db.groupATeam.belongsToMany(db.groupBTeam, {
-  through: "groupATeam_groupBTeam",
-  as: "groupBTeams",
-  foreignKey: "groupATeam_id",
+db.group_A_team.belongsToMany(db.group_B_team, {
+  through: "groupAteam_groupBteam",
+  as: "group_B_teams",
+  foreignKey: "groupA_id",
 });
 
 module.exports = db;

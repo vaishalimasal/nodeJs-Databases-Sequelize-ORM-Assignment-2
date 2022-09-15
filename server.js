@@ -1,69 +1,76 @@
 const db = require("./app/models");
-const GroupATeamsController = require("./app/controllers/groupATeam.controller");
-const GroupBTeamsController = require("./app/controllers/groupBTeam.controller");
+const GroupAController = require("./app/controllers/gruopA.controller");
+const GroupBController = require("./app/controllers/groupB.controller");
 
 const run = async () => {
-  // Create GroupATeamss
-  const team1 = await GroupATeamsController.create({
-    teamName: "Data Daredevils",
-    teamGroup: "Group A teamGroup",
+  // Create Group_A_Teams
+  const tut1 = await GroupAController.create({
+    teamName: " Data Daredevils",
+    teamGroup: "A teamGroup",
   });
 
-  const team2 = await GroupATeamsController.create({
-    teamName: "Data Daredevils",
-    teamGroup: "Group A teamGroup",
+  const tut2 = await GroupAController.create({
+    teamName: "Design Dazzlers",
+    teamGroup: "A TeamGroup",
   });
 
-  const team3 = await GroupATeamsController.create({
+  const tut3 = await GroupAController.create({
     teamName: "Python Predators",
-    teamGroup: "Group A teamGroup",
+    teamGroup: "A teamGroup",
   });
 
-  const team4 = await GroupATeamsController.create({
+  const tut4 = await GroupAController.create({
     teamName: "Java Riders",
-    teamGroup: "Group A teamGroup",
+    teamGroup: "A teamGroup",
   });
 
-  // Create GroupBTeams
-  const team5 = await GroupBTeamsController.create({
+  // Create Group_B_Teams
+  const tag1 = await GroupBController.create({
     name: "Product Panthers",
-    teamGroupB: "Group B"
+    teamGroupB: "B teamGroup",
   });
 
-  const team6 = await GroupBTeamsController.create({
-    name: "UI Unicorns",
-    teamGroupB: "Group B"
+  const tag2 = await GroupBController.create({
+    name: "Enabling Eternals",
+    teamGroupB: "B teamGroup",
   });
+console.log("************Add Group_A_Teams to Tags***********")
+  // Add Group_A_Teams to Tags
+  await GroupBController.addGroup_A_Team(tag1.id, tut1.id);
+  // >> added Group_A_Team id=1 to Tag id=1
 
-  // Add GroupATeams to Tags
-  await GroupBTeamsController.addGroupATeams(team5.id, team1.id);
-  // >> added GroupATeams id=1 to Tag id=1
-  await GroupBTeamsController.addGroupATeams(team5.id, team2.id);
-  // >> added GroupATeams id=2 to Tag id=1
-  await GroupBTeamsController.addGroupATeams(team5.id, team3.id);
-  // >> added GroupATeams id=3 to Tag id=1
-  await GroupBTeamsController.addGroupATeams(team6.id, team3.id);
-  // >> added GroupATeams id=3 to Tag id=2
-  await GroupBTeamsController.addGroupATeams(team6.id, team4.id);
-  // >> added GroupATeams id=4 to Tag id=2
-  await GroupBTeamsController.addGroupATeams(team6.id, team1.id);
-  // >> added GroupATeams id=1 to Tag id=2
+  await GroupBController.addGroup_A_Team(tag1.id, tut2.id);
+  // >> added Group_A_Team id=2 to Tag id=1
 
-  // Show Tag (including GroupATeamss) by id
-  // const _team5 = await GroupBTeamsController.findById(team5.id);
-  // console.log(">> team5", JSON.stringify(_team5, null, 2));
+  await GroupBController.addGroup_A_Team(tag1.id, tut3.id);
+  // >> added Group_A_Team id=3 to Tag id=1
 
-  // Show all Tags
-  // const tags = await GroupBTeamsController.findAll();
-  // console.log(">> tags", JSON.stringify(tags, null, 2));
+  await GroupBController.addGroup_A_Team(tag2.id, tut3.id);
+  // >> added Group_A_Team id=3 to Tag id=2
 
-  // Show GroupATeams (including Tags) by id
-  const _tut = await GroupATeamsController.findById(team3.id);
-  console.log(">> team3", JSON.stringify(_tut, null, 2));
+  await GroupBController.addGroup_A_Team(tag2.id, tut4.id);
+  // >> added Group_A_Team id=4 to Tag id=2
 
-  // Show all GroupATeamss
-  // const tuts = await GroupATeamsController.findAll();
-  // console.log(">> tuts", JSON.stringify(tuts, null, 2));
+  await GroupBController.addGroup_A_Team(tag2.id, tut1.id);
+  // >> added Group_A_Team id=1 to Tag id=2
+
+  // Show Group_B_Teams (including Group_A_Teams) by id
+  const _tag1 = await GroupBController.findById(tag1.id);
+  console.log(">> tag1", JSON.stringify(_tag1, null, 2));
+
+  // Show all Group_B_Teams
+  // const group_B_teams = await GroupBController.findAll();
+  // console.log(">> tags", JSON.stringify(group_B_teams, null, 2));
+  const tags = await GroupBController.findAll();
+  console.log(">> tags", JSON.stringify(tags, null, 2));
+
+  // Show Group_A_Team (including Tags) by id
+  const _tut = await GroupAController.findById(tut3.id);
+  console.log(">> tut3", JSON.stringify(_tut, null, 2));
+
+  // Show all Group_A_Teams
+  const tuts = await GroupAController.findAll();
+  console.log(">> tuts", JSON.stringify(tuts, null, 2));
 };
 
 // db.sequelize.sync();
